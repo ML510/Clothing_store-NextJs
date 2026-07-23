@@ -1,0 +1,120 @@
+/**
+ * customer-management.css
+ *
+ * Design tokens for the Customer Management page, scoped under `.cm-root`
+ * so they never collide with shadcn/ui's own CSS variables (--background,
+ * --primary, --border, etc.) that already live on `:root` in globals.css.
+ *
+ * Usage in JSX: wrap the page in <div className="cm-root"> ... </div>
+ * and reference colors with Tailwind arbitrary values, e.g.
+ * className="bg-[var(--cm-primary)] text-[var(--cm-on-primary)]"
+ */
+
+.cm-root {
+  /* Color tokens (from the original Material-3-style palette) */
+  --cm-on-primary-fixed: #00201e;
+  --cm-inverse-on-surface: #f0f1f0;
+  --cm-on-tertiary: #ffffff;
+  --cm-outline-variant: #c0c8c7;
+  --cm-inverse-primary: #a2cfcb;
+  --cm-surface-variant: #e2e3e1;
+  --cm-tertiary-fixed-dim: #eebc9f;
+  --cm-surface-container-low: #f3f4f2;
+  --cm-error-container: #ffdad6;
+  --cm-tertiary: #7c563e;
+  --cm-primary-fixed-dim: #a2cfcb;
+  --cm-background: #f9f9f8;
+  --cm-primary: #3b6663;
+  --cm-on-primary-container: #396461;
+  --cm-surface-container: #edeeed;
+  --cm-on-background: #1a1c1c;
+  --cm-secondary-container: #d4e6e5;
+  --cm-tertiary-fixed: #ffdbc8;
+  --cm-on-primary-fixed-variant: #224e4b;
+  --cm-primary-fixed: #beebe7;
+  --cm-on-secondary-container: #576867;
+  --cm-on-surface: #1a1c1c;
+  --cm-on-secondary-fixed-variant: #3a4a49;
+  --cm-tertiary-container: #ffccae;
+  --cm-secondary-fixed-dim: #b8cac9;
+  --cm-on-tertiary-fixed: #2f1503;
+  --cm-on-secondary-fixed: #0e1e1e;
+  --cm-on-tertiary-fixed-variant: #613f29;
+  --cm-secondary-fixed: #d4e6e5;
+  --cm-error: #ba1a1a;
+  --cm-on-error: #ffffff;
+  --cm-surface-tint: #3b6663;
+  --cm-surface-dim: #d9dad9;
+  --cm-surface-bright: #f9f9f8;
+  --cm-surface: #f9f9f8;
+  --cm-on-primary: #ffffff;
+  --cm-outline: #717977;
+  --cm-surface-container-highest: #e2e3e1;
+  --cm-surface-container-lowest: #ffffff;
+  --cm-inverse-surface: #2f3130;
+  --cm-secondary: #516161;
+  --cm-on-error-container: #93000a;
+  --cm-primary-container: #b2dfdb;
+  --cm-surface-container-high: #e8e8e7;
+  --cm-on-surface-variant: #404847;
+  --cm-on-secondary: #ffffff;
+  --cm-on-tertiary-container: #7a543d;
+
+  /* Spacing tokens */
+  --cm-space-xs: 4px;
+  --cm-space-base: 8px;
+  --cm-space-sm: 12px;
+  --cm-space-md: 24px;
+  --cm-space-gutter: 24px;
+  --cm-space-margin: 32px;
+  --cm-space-lg: 40px;
+  --cm-space-xl: 64px;
+
+  /* Type scale */
+  --cm-font-display: 700 36px/44px Inter, sans-serif;
+  --cm-font-headline-lg: 600 28px/36px Inter, sans-serif;
+  --cm-font-headline-md: 600 20px/28px Inter, sans-serif;
+  --cm-font-body-lg: 400 16px/24px Inter, sans-serif;
+  --cm-font-body-md: 400 14px/20px Inter, sans-serif;
+  --cm-font-label-md: 600 12px/16px Inter, sans-serif;
+  --cm-font-label-sm: 500 11px/14px Inter, sans-serif;
+
+  font-family: Inter, sans-serif;
+  background-color: var(--cm-background);
+  color: var(--cm-on-background);
+}
+
+/* Utility classes for the type scale (Tailwind's font-[...] arbitrary
+   shorthand can't take multi-value `font` shorthand, so these cover it) */
+.cm-root .text-display {
+  font: var(--cm-font-display);
+  letter-spacing: -0.02em;
+}
+.cm-root .text-headline-lg {
+  font: var(--cm-font-headline-lg);
+}
+.cm-root .text-headline-md {
+  font: var(--cm-font-headline-md);
+}
+.cm-root .text-body-lg {
+  font: var(--cm-font-body-lg);
+}
+.cm-root .text-body-md {
+  font: var(--cm-font-body-md);
+}
+.cm-root .text-label-md {
+  font: var(--cm-font-label-md);
+  letter-spacing: 0.05em;
+}
+.cm-root .text-label-sm {
+  font: var(--cm-font-label-sm);
+}
+
+/* Reveal row actions on hover, same behaviour as the original markup */
+.cm-root .cm-row-actions {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.cm-root tr:hover .cm-row-actions {
+  opacity: 1;
+}
