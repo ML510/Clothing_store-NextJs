@@ -3,29 +3,11 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  HelpCircle,
-  Search,
-  Plus,
-  Bell,
-  Filter,
-  Download,
-  Pencil,
-  Trash2,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
-
+import { Label } from "@/components/ui/label";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Search, Plus, Filter, Pencil, Trash2, ChevronLeft, ChevronRight, Mail, Phone, MapPin, User, Save, X } from "lucide-react";
 import "./customer.css";
+import "./../needComponents/AddCustomerForm/addCustomerForm.css";
 
 const CUSTOMERS = [
   {
@@ -60,8 +42,24 @@ const CUSTOMERS = [
   },
 ];
 
-export default function page() {
+export default function Page() {
   const [page, setPage] = useState(1);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [form, setForm] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    address1: "",
+  });
+
+  const handleChange = (field) => (e) =>
+    setForm((prev) => ({ ...prev, [field]: e.target.value }));
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("New customer:", form);
+    setIsAddModalOpen(false);
+  };
 
   return (
     <div className="cm-root h-screen flex overflow-hidden bg-[var(--cm-background)] text-[var(--cm-on-background)]">
@@ -69,65 +67,7 @@ export default function page() {
 
       {/* Main content wrapper */}
       <div className="flex-1 flex flex-col min-h-screen overflow-hidden">
-        {/* Top nav */}
-        {/* <header className="h-16 w-full max-w-[1440px] mx-auto sticky top-0 z-10 bg-[var(--cm-surface-container-lowest)] shadow-sm flex items-center justify-between px-10">
-          <div className="flex items-center gap-6">
-            <h2 className="text-headline-lg font-semibold text-[var(--cm-on-surface)] hidden md:block">
-              Customer Management
-            </h2>
-          </div>
-
-          <div className="flex-1 max-w-md mx-10 hidden md:block relative">
-            <Search
-              size={18}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--cm-on-surface-variant)]"
-            />
-            <Input
-              placeholder="Search Customer..."
-              className="pl-10 pr-12 bg-[var(--cm-surface)] border-[var(--cm-outline-variant)] focus-visible:ring-[var(--cm-primary)]"
-            />
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-label-sm text-[var(--cm-outline)] px-1.5 py-0.5 rounded border border-[var(--cm-outline-variant)] bg-[var(--cm-surface-container-lowest)]">
-              ⌘K
-            </span>
-          </div>
-
-          <div className="flex items-center gap-6">
-            <Button className="bg-[var(--cm-primary-container)] text-[var(--cm-on-primary-container)] hover:bg-[var(--cm-secondary-container)] gap-1">
-              <Plus size={18} />
-              Add New
-            </Button>
-
-            <div className="flex items-center gap-1">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-full text-[var(--cm-on-surface-variant)] hover:text-[var(--cm-primary)] hover:bg-[var(--cm-surface-container-high)]"
-              >
-                <Bell size={20} />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-full text-[var(--cm-on-surface-variant)] hover:text-[var(--cm-primary)] hover:bg-[var(--cm-surface-container-high)] md:hidden"
-              >
-                <Search size={20} />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-full text-[var(--cm-on-surface-variant)] hover:text-[var(--cm-primary)] hover:bg-[var(--cm-surface-container-high)]"
-              >
-                <HelpCircle size={20} />
-              </Button>
-            </div>
-
-            <Avatar className="w-8 h-8 ml-2 border border-[var(--cm-outline-variant)] cursor-pointer hover:border-[var(--cm-primary)] transition-colors">
-              <AvatarImage src="/avatar.jpg" alt="User avatar" />
-              <AvatarFallback>U</AvatarFallback>
-            </Avatar>
-          </div>
-        </header> */}
-
+        
         {/* Main content */}
         <main className="flex-1 overflow-y-auto p-10 max-w-[1440px] mx-auto w-full">
           <div className="mb-10 flex justify-between items-end">
@@ -162,7 +102,11 @@ export default function page() {
                 <Filter size={18} />
                 Filter
               </Button>
-              <Button className="bg-[var(--cm-primary-container)] text-[var(--cm-on-primary-container)] hover:bg-[var(--cm-secondary-container)] gap-1">
+              <Button
+                type="button"
+                onClick={() => setIsAddModalOpen(true)}
+                className="bg-[var(--cm-primary-container)] text-[var(--cm-on-primary-container)] hover:bg-[var(--cm-secondary-container)] gap-1"
+              >
                 <Plus size={18} />
                 Add New
               </Button>
@@ -274,6 +218,126 @@ export default function page() {
           </div>
         </main>
       </div>
+
+      {isAddModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-xl bg-[var(--cm-surface-container-lowest)] p-6 shadow-2xl md:p-8">
+            <div className="mb-6 flex items-start justify-between gap-4">
+              <div>
+                <h3 className="text-headline-md text-[var(--cm-on-surface)]">Add New Customer</h3>
+                <p className="mt-1 text-body-md text-[var(--cm-on-surface-variant)]">
+                  Fill in the customer details below.
+                </p>
+              </div>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsAddModalOpen(false)}
+                className="text-[var(--cm-on-surface-variant)] hover:bg-[var(--cm-surface-container-high)]"
+              >
+                <X size={18} />
+              </Button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div className="md:col-span-2 mb-1 flex items-center gap-3 border-b border-[var(--cm-surface-variant)] pb-3 text-[var(--cm-primary)]">
+                <User size={20} fill="currentColor" />
+                <h4 className="text-headline-md text-[var(--cm-on-surface)]">Contact Information</h4>
+              </div>
+
+              <div className="flex flex-col gap-1.5 md:col-span-2">
+                <Label htmlFor="fullName" className="text-label-md text-[var(--cm-on-surface-variant)]">
+                  Full Name *
+                </Label>
+                <Input
+                  id="fullName"
+                  name="fullName"
+                  placeholder="e.g. Jane Doe"
+                  required
+                  value={form.fullName}
+                  onChange={handleChange("fullName")}
+                  className="border-[var(--cm-outline-variant)] bg-[var(--cm-surface-container-lowest)] text-[var(--cm-on-surface)] placeholder:text-[var(--cm-on-surface-variant)] focus-visible:border-[var(--cm-primary)] focus-visible:ring-[var(--cm-primary)]"
+                />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <Label htmlFor="email" className="text-label-md text-[var(--cm-on-surface-variant)]">
+                  Email Address *
+                </Label>
+                <div className="relative flex items-center">
+                  <Mail size={20} className="pointer-events-none absolute left-3 text-[var(--cm-on-surface-variant)]" />
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="name@company.com"
+                    required
+                    value={form.email}
+                    onChange={handleChange("email")}
+                    className="w-full border-[var(--cm-outline-variant)] bg-[var(--cm-surface-container-lowest)] pl-10 text-[var(--cm-on-surface)] placeholder:text-[var(--cm-on-surface-variant)] focus-visible:border-[var(--cm-primary)] focus-visible:ring-[var(--cm-primary)]"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <Label htmlFor="phone" className="text-label-md text-[var(--cm-on-surface-variant)]">
+                  Phone Number
+                </Label>
+                <div className="relative flex items-center">
+                  <Phone size={20} className="pointer-events-none absolute left-3 text-[var(--cm-on-surface-variant)]" />
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="+1 (555) 000-0000"
+                    value={form.phone}
+                    onChange={handleChange("phone")}
+                    className="w-full border-[var(--cm-outline-variant)] bg-[var(--cm-surface-container-lowest)] pl-10 text-[var(--cm-on-surface)] placeholder:text-[var(--cm-on-surface-variant)] focus-visible:border-[var(--cm-primary)] focus-visible:ring-[var(--cm-primary)]"
+                  />
+                </div>
+              </div>
+
+              <div className="md:col-span-2 mt-6 flex items-center gap-3 border-b border-[var(--cm-surface-variant)] pb-3 text-[var(--cm-primary)]">
+                <MapPin size={20} fill="currentColor" />
+                <h4 className="text-headline-md text-[var(--cm-on-surface)]">Physical Address</h4>
+              </div>
+
+              <div className="flex flex-col gap-1.5 md:col-span-2">
+                <Label htmlFor="address1" className="text-label-md text-[var(--cm-on-surface-variant)]">
+                  Street Address
+                </Label>
+                <Input
+                  id="address1"
+                  name="address1"
+                  placeholder="123 Main St, Suite 400"
+                  value={form.address1}
+                  onChange={handleChange("address1")}
+                  className="border-[var(--cm-outline-variant)] bg-[var(--cm-surface-container-lowest)] text-[var(--cm-on-surface)] placeholder:text-[var(--cm-on-surface-variant)] focus-visible:border-[var(--cm-primary)] focus-visible:ring-[var(--cm-primary)]"
+                />
+              </div>
+
+              <div className="md:col-span-2 mt-6 flex items-center justify-end gap-4 border-t border-[var(--cm-surface-variant)] pt-6">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setIsAddModalOpen(false)}
+                  className="border-[var(--cm-primary-container)] text-[var(--cm-on-surface)] hover:bg-[var(--cm-surface-container)]"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  className="gap-1 bg-[var(--cm-primary-container)] text-[var(--cm-on-primary-fixed-variant)] hover:bg-[var(--cm-primary-fixed)] hover:shadow-sm"
+                >
+                  <Save size={18} />
+                  Save Customer
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

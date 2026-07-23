@@ -65,25 +65,6 @@ export default function page() {
           </a>
         </nav>
 
-        
-
-        {/* <nav className="flex-1 flex flex-col gap-1">
-          {NAV_ITEMS.map(({ label, icon: Icon, active }) => (
-            <a
-              key={label}
-              href="#"
-              className={`flex items-center gap-3 px-6 py-3 rounded-lg transition-colors duration-200 ${
-                active
-                  ? "text-[var(--cm-primary)] font-bold border-r-4 border-[var(--cm-primary)] bg-[var(--cm-primary-container)]/20"
-                  : "text-[var(--cm-on-surface-variant)] hover:text-[var(--cm-primary)] hover:bg-[var(--cm-surface-container)]"
-              }`}
-            >
-              <Icon size={22} strokeWidth={active ? 2.4 : 2} />
-              <span className="text-label-md">{label}</span>
-            </a>
-          ))}
-        </nav> */}
-
         <div className="mt-auto pt-10 border-t border-[var(--cm-outline-variant)]">
           <a
             href="#"
